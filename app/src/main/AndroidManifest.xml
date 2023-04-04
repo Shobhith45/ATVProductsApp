@@ -16,7 +16,7 @@
         android:theme="@style/Theme.ATVProductsApp"
         android:banner="@mipmap/ic_launcher">
         <activity
-            android:name=".HomeActivity"
+            android:name=".home.presentation.ui.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        lifecycle_version = '2.5.1'
+        glide_version = '4.15.0'
+        lifecycle_version = '2.5.1'
+        coroutine_version = '1.6.4'
+        coin_version = '3.4.0'
+        retrofit_version = '2.9.0'
+    }
+}
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
