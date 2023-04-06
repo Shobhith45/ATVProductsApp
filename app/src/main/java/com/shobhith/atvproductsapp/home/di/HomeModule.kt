@@ -3,8 +3,8 @@ package com.shobhith.atvproductsapp.home.di
 import com.shobhith.atvproductsapp.home.data.data_source.remote.api.ProductApiService
 import com.shobhith.atvproductsapp.home.data.data_source.repository.ProductRepositoryImpl
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
-import com.shobhith.atvproductsapp.home.domain.use_case.GetProductByCategoryName
-import com.shobhith.atvproductsapp.home.domain.use_case.GetProductCategories
+import com.shobhith.atvproductsapp.home.domain.usecase.GetProductByCategoryName
+import com.shobhith.atvproductsapp.home.domain.usecase.GetProductCategories
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

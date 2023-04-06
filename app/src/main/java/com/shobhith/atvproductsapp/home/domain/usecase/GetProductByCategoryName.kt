@@ -1,4 +1,4 @@
-package com.shobhith.atvproductsapp.home.domain.use_case
+package com.shobhith.atvproductsapp.home.domain.usecase
 
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
 
