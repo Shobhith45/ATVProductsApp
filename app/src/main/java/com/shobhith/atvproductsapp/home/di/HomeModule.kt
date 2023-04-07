@@ -26,3 +26,4 @@ private fun provideGetCategoriesUseCase(repository: ProductRepository) : GetProd
 
 private fun provideGetProductByCategoryNameUseCase(repository: ProductRepository) : GetProductByCategoryName =
     GetProductByCategoryName(repository)
+

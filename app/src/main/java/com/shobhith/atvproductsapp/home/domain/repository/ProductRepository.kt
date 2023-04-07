@@ -8,3 +8,4 @@ interface ProductRepository {
     fun getProductCategories() : Observable<CategoryResponse>
     fun getProductByCategoryName(name: String) : Observable<ProductResponse>
 }
+

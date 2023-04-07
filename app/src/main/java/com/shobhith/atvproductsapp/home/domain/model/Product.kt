@@ -27,3 +27,4 @@ data class Product(
     @SerializedName("title")
     val title: String
 )
+

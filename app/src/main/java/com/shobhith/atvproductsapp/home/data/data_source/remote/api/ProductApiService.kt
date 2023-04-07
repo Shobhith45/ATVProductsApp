@@ -15,3 +15,4 @@ interface ProductApiService {
     fun getProductByCategory(@Path("category")category: String) : Observable<ProductResponse>
 
 }
+

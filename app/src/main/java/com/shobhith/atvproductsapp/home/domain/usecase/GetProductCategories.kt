@@ -6,3 +6,4 @@ class GetProductCategories(private val repository: ProductRepository) {
     operator fun invoke() =
         repository.getProductCategories()
 }
+

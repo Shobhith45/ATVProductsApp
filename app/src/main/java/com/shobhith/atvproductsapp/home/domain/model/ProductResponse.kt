@@ -13,3 +13,4 @@ data class ProductResponse(
     @SerializedName("total")
     val total: Int
 )
+

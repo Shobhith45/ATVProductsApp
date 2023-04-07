@@ -17,3 +17,4 @@ private fun provideRetrofit() : Retrofit {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 }
+
