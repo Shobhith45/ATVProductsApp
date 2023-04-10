@@ -10,3 +10,4 @@ class HomeActivity : FragmentActivity() {
         setContentView(R.layout.activity_home)
     }
 }
+
