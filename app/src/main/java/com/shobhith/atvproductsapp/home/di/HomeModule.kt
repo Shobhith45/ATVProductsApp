@@ -5,6 +5,8 @@ import com.shobhith.atvproductsapp.home.data.data_source.repository.ProductRepos
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
 import com.shobhith.atvproductsapp.home.domain.usecase.GetProductByCategoryName
 import com.shobhith.atvproductsapp.home.domain.usecase.GetProductCategories
+import com.shobhith.atvproductsapp.home.presentation.viewmodel.HomeViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -13,6 +15,7 @@ val homeModule = module {
     factory { provideProductRepository(get()) }
     factory { provideGetCategoriesUseCase(get()) }
     factory { provideGetProductByCategoryNameUseCase(get()) }
+    viewModel { HomeViewModel(get(), get()) }
 }
 
 private fun provideProductApi(retrofit: Retrofit) : ProductApiService =
