@@ -1,5 +1,6 @@
 package com.shobhith.atvproductsapp.home.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +14,9 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import com.shobhith.atvproductsapp.R
+import com.shobhith.atvproductsapp.common.util.Constants.EXTRA_PRODUCT_CATEGORY
+import com.shobhith.atvproductsapp.common.util.Constants.EXTRA_PRODUCT_ID
+import com.shobhith.atvproductsapp.details.presentation.ui.ProductDetailActivity
 import com.shobhith.atvproductsapp.home.domain.model.Product
 import com.shobhith.atvproductsapp.home.presentation.presenters.ProductCardPresenter
 import com.shobhith.atvproductsapp.home.presentation.state.ProductListState
@@ -37,6 +41,18 @@ class HomeFragment : BrowseSupportFragment() {
         setupUI()
         setupAdapter()
         observeData()
+        setOnProductClickListener()
+    }
+
+    private fun setOnProductClickListener() {
+        setOnItemViewClickedListener { _, item, _, _ ->
+            if (item is Product) {
+                val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+                intent.putExtra(EXTRA_PRODUCT_ID, item.id)
+                intent.putExtra(EXTRA_PRODUCT_CATEGORY, item.category)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun setupAdapter() {
