@@ -4,6 +4,8 @@ import com.shobhith.atvproductsapp.details.data.datasource.remote.api.ProductDet
 import com.shobhith.atvproductsapp.details.data.datasource.repository.ProductDetailsRepositoryImpl
 import com.shobhith.atvproductsapp.details.domain.repository.ProductDetailsRepository
 import com.shobhith.atvproductsapp.details.domain.usecase.GetProductDetails
+import com.shobhith.atvproductsapp.details.presentation.viewmodel.ProductDetailViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -11,6 +13,7 @@ val productDetailsModule = module {
     single { provideProductDetailsApi(get()) }
     factory { provideProductDetailsRepository(get()) }
     factory { provideGetProductDetailsUseCase(get()) }
+    viewModel { ProductDetailViewModel(get(), get(), get()) }
 }
 
 private fun provideProductDetailsApi(retrofit: Retrofit) : ProductDetailsApiService =
