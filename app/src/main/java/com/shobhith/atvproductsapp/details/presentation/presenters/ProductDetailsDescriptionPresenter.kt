@@ -1,4 +1,4 @@
-package com.shobhith.atvproductsapp.details.presentation.presenter
+package com.shobhith.atvproductsapp.details.presentation.presenters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
