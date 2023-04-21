@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ATVProductsApp</string>
     <string name="home_page_title">TV App Example</string>
+    <string name="action_watch_for_free">WATCH FOR FREE</string>
+    <string name="action_rent_by_day">RENT BY DAY FROM $%d</string>
+    <string name="action_buy_and_own">BUY AND OWN AT $%d</string>
+    <string name="related_products_header">Related Products</string>
 </resources>
