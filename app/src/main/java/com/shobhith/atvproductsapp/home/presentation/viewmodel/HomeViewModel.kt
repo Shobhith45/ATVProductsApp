@@ -22,7 +22,7 @@ class HomeViewModel(
         getProducts()
     }
 
-    private fun getProducts() {
+    fun getProducts() {
         getCategories()
             .subscribeOn(Schedulers.io())
             .flatMap { catList -> Observable.fromIterable(catList) }
