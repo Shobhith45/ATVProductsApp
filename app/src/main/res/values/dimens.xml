@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="banner_image_height">250dp</dimen>
-    <dimen name="banner_image_width">200dp</dimen>
+    <dimen name="banner_image_width">180dp</dimen>
     <dimen name="dimen_0dp">0dp</dimen>
     <dimen name="dimen_2dp">2dp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="text_8">8sp</dimen>
     <dimen name="text_16">16sp</dimen>
     <dimen name="text_24">24sp</dimen>
 </resources>

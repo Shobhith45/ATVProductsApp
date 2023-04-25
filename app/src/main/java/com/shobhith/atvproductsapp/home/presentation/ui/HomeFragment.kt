@@ -56,7 +56,10 @@ class HomeFragment : BrowseSupportFragment() {
     }
 
     private fun setupAdapter() {
-        rowsAdapter = ArrayObjectAdapter(ListRowPresenter(FocusHighlight.ZOOM_FACTOR_NONE))
+        val listPresenter = ListRowPresenter(FocusHighlight.ZOOM_FACTOR_XSMALL).apply {
+            shadowEnabled = false
+        }
+        rowsAdapter = ArrayObjectAdapter(listPresenter)
         adapter = rowsAdapter
     }
 
