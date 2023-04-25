@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
+import com.shobhith.atvproductsapp.R
 import com.shobhith.atvproductsapp.databinding.ItemProductBinding
 import com.shobhith.atvproductsapp.home.domain.model.Product
 
@@ -31,6 +32,8 @@ class ProductCardPresenter : Presenter() {
                     .load(product.thumbnail)
                     .into(ivBanner)
                 tvTitle.text = product.title
+                tvDescription.text = product.description
+                tvRating.text = root.context.getString(R.string.product_rating, product.rating.toString())
             }
         }
     }
