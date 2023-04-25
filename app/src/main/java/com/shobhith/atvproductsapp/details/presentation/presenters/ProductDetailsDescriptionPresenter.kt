@@ -3,6 +3,7 @@ package com.shobhith.atvproductsapp.details.presentation.presenters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
+import com.shobhith.atvproductsapp.R
 import com.shobhith.atvproductsapp.databinding.ItemProductDetailsBinding
 import com.shobhith.atvproductsapp.home.domain.model.Product
 
@@ -27,8 +28,14 @@ class ProductDetailsDescriptionPresenter : Presenter() {
         fun bind(product: Product) {
             binding.apply {
                 tvTitle.text = product.title
-                tvBrand.text = product.brand
+                chipBrand.text = product.brand
+                chipCategory.text = product.category
                 tvDescription.text = product.description
+                with(root.context) {
+                    tvPrice.text = getString(R.string.product_price, product.price)
+                    tvRating.text = getString(R.string.product_details_rating, product.rating.toString())
+                    tvDiscount.text = getString(R.string.discount_percentage, product.discountPercentage.toString())
+                }
             }
         }
     }

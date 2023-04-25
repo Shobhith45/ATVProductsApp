@@ -5,5 +5,8 @@
     <string name="action_rent_by_day">RENT BY DAY FROM $%d</string>
     <string name="action_buy_and_own">BUY AND OWN AT $%d</string>
     <string name="related_products_header">Related Products</string>
-    <string name="product_rating">%s &#9733;</string>
+    <string name="product_rating">%s &#11088;</string>
+    <string name="product_details_rating">%s &#9733;</string>
+    <string name="product_price">$%d</string>
+    <string name="discount_percentage">Get %s%% off</string>
 </resources>
