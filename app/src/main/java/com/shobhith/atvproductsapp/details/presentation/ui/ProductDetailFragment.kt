@@ -1,5 +1,6 @@
 package com.shobhith.atvproductsapp.details.presentation.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.leanback.widget.Action
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.ClassPresenterSelector
 import androidx.leanback.widget.DetailsOverviewRow
+import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
@@ -20,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.shobhith.atvproductsapp.R
+import com.shobhith.atvproductsapp.common.util.Constants
 import com.shobhith.atvproductsapp.common.util.DensityUtil
 import com.shobhith.atvproductsapp.details.presentation.presenters.ProductDetailsDescriptionPresenter
 import com.shobhith.atvproductsapp.details.presentation.state.ProductDetailsState
@@ -42,6 +45,21 @@ class ProductDetailFragment : DetailsSupportFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         observeDetailsState()
+        setItemClickListener()
+    }
+
+    private fun setItemClickListener() {
+        setOnItemViewClickedListener { _, item, _, _ ->
+            if (item is Product) {
+                val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+                with(intent) {
+                    putExtra(Constants.EXTRA_PRODUCT_ID, item.id)
+                    putExtra(Constants.EXTRA_PRODUCT_CATEGORY, item.category)
+                    startActivity(this)
+                }
+                activity?.finish()
+            }
+        }
     }
 
     private fun observeDetailsState() {
@@ -98,7 +116,10 @@ class ProductDetailFragment : DetailsSupportFragment() {
 
         val classPresenterSelector = ClassPresenterSelector().apply {
             addClassPresenter(DetailsOverviewRow::class.java, fullWidthMovieDetailsPresenter)
-            addClassPresenter(ListRow::class.java, ListRowPresenter())
+            addClassPresenter(
+                ListRow::class.java,
+                ListRowPresenter(FocusHighlight.ZOOM_FACTOR_XSMALL).apply { shadowEnabled = false }
+            )
         }
 
         mainAdapter = ArrayObjectAdapter(classPresenterSelector)
