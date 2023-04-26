@@ -1,5 +1,6 @@
 package com.shobhith.atvproductsapp.home.data.data_source.repository
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.shobhith.atvproductsapp.home.data.data_source.remote.api.ProductApiService
 import com.shobhith.atvproductsapp.home.domain.model.CategoryResponse
 import com.shobhith.atvproductsapp.home.domain.model.Product
@@ -10,9 +11,13 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.reactivex.rxjava3.core.Observable
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class ProductRepositoryTest {
+
+    @get: Rule
+    var instantTaskExecutorRule: InstantTaskExecutorRule? = InstantTaskExecutorRule()
 
     @MockK
     private lateinit var productApi: ProductApiService
