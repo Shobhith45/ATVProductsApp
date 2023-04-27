@@ -49,7 +49,7 @@ class GetProductByCategoryNameTest {
     fun `given GetProductByCategoryName when error should return error observable`() {
         val error = Throwable("Some Error")
         every { productRepository.getProductByCategoryName(any()) } returns Observable.error(error)
-        val response = getProducts("smartphones").test()
+        val response = getProducts("").test()
         response.assertError(error)
     }
 }

@@ -65,7 +65,8 @@ class ProductRepositoryTest {
     fun `given getProductByCategoryName when error should return error response`() {
         val error = Throwable("Error")
         every { productApi.getProductByCategory(any()) } returns Observable.error(error)
-        val response = productRepository.getProductByCategoryName("smartphones").test()
+        val response = productRepository.getProductByCategoryName("").test()
         response.assertError(error)
     }
 }
+
