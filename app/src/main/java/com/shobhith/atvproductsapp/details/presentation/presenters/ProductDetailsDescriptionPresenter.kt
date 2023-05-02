@@ -33,7 +33,7 @@ class ProductDetailsDescriptionPresenter : Presenter() {
                 tvDescription.text = product.description
                 with(root.context) {
                     tvPrice.text = getString(R.string.product_price, product.price)
-                    tvRating.text = getString(R.string.product_details_rating, product.rating.toString())
+                    tvRating.rating = product.rating.toFloat()
                     tvDiscount.text = getString(R.string.discount_percentage, product.discountPercentage.toString())
                 }
             }

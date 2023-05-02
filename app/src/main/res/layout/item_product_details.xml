@@ -60,12 +60,16 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <TextView
+    <RatingBar
         android:id="@+id/tv_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_16"
-        android:textStyle="bold"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:progressTint="@color/white"
+        android:progressBackgroundTint="#000"
+        android:secondaryProgressTint="@android:color/transparent"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_marginTop="@dimen/dimen_8dp" />
 
 </LinearLayout>
