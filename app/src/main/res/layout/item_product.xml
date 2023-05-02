@@ -57,15 +57,17 @@
         app:layout_constraintStart_toStartOf="@id/iv_banner"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <TextView
+    <RatingBar
         android:id="@+id/tv_rating"
-        android:layout_width="@dimen/dimen_0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/card_text_selector"
-        android:textSize="@dimen/text_8"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:progressBackgroundTint="@color/white"
+        android:progressTint="@color/details_background_color"
+        android:secondaryProgressTint="@android:color/transparent"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_marginVertical="@dimen/dimen_2dp"
-        android:lines="1"
-        app:layout_constraintEnd_toStartOf="@id/iv_person"
         app:layout_constraintStart_toStartOf="@id/iv_banner"
         app:layout_constraintTop_toBottomOf="@id/tv_description" />
 

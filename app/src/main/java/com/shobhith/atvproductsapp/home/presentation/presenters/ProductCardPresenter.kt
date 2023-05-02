@@ -33,7 +33,7 @@ class ProductCardPresenter : Presenter() {
                     .into(ivBanner)
                 tvTitle.text = product.title
                 tvDescription.text = product.description
-                tvRating.text = root.context.getString(R.string.product_rating, product.rating.toString())
+                tvRating.rating = product.rating.toFloat()
             }
         }
     }
