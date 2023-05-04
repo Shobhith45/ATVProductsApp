@@ -47,7 +47,7 @@ class HomeFragment : BrowseSupportFragment() {
     private fun setOnProductClickListener() {
         setOnItemViewClickedListener { _, item, _, _ ->
             if (item is Product) {
-                val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+                val intent = Intent(activity, ProductDetailActivity::class.java)
                 intent.putExtra(EXTRA_PRODUCT_ID, item.id)
                 intent.putExtra(EXTRA_PRODUCT_CATEGORY, item.category)
                 startActivity(intent)
@@ -67,7 +67,7 @@ class HomeFragment : BrowseSupportFragment() {
         viewModel.productHomeState.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is ProductListState.Error -> {
-                    Toast.makeText(context, state.errorMessage.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity?.applicationContext, state.errorMessage.toString(), Toast.LENGTH_LONG).show()
                 }
                 is ProductListState.ProductsFetched -> {
                     if ((state.products != null) && state.products.isNotEmpty()) {

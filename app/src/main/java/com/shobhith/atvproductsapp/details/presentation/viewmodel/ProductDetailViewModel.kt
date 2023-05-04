@@ -12,6 +12,7 @@ import com.shobhith.atvproductsapp.details.util.ProductDetailConstants.DEFAULT_C
 import com.shobhith.atvproductsapp.details.util.ProductDetailConstants.DEFAULT_ID
 import com.shobhith.atvproductsapp.home.domain.usecase.GetProductByCategoryName
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ProductDetailViewModel(
@@ -26,34 +27,45 @@ class ProductDetailViewModel(
     private val _detailsState = MutableLiveData<ProductDetailsState>()
     val detailsState: LiveData<ProductDetailsState> get() = _detailsState
 
+    private val disposable = CompositeDisposable()
+
     init {
         getProductDetailsById(productId)
     }
 
     fun getProductDetailsById(id: Int) {
-        getProductDetails(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                {
-                    _detailsState.value = ProductDetailsState.DetailsFetched(it)
-                    getRelatedProducts(categoryName)
-                },
-                { _detailsState.value = ProductDetailsState.Error(it.message) }
-            )
+        disposable.add(
+            getProductDetails(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                    {
+                        _detailsState.value = ProductDetailsState.DetailsFetched(it)
+                        getRelatedProducts(categoryName)
+                    },
+                    { _detailsState.value = ProductDetailsState.Error(it.message) }
+                )
+        )
     }
 
     fun getRelatedProducts(categoryName: String) {
-        getProductByName(categoryName)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _detailsState.value =
-                        ProductDetailsState.RelatedItemsFetched(it.products.shuffled())
-                },
-                { _detailsState.value = ProductDetailsState.Error(it.message) }
-            )
+        disposable.add(
+            getProductByName(categoryName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        _detailsState.value =
+                            ProductDetailsState.RelatedItemsFetched(it.products.shuffled())
+                    },
+                    { _detailsState.value = ProductDetailsState.Error(it.message) }
+                )
+        )
+    }
+
+    override fun onCleared() {
+        disposable.dispose()
+        super.onCleared()
     }
 }
 
