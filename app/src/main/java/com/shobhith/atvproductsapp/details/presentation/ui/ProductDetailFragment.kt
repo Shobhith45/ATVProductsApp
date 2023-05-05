@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.leanback.app.DetailsSupportFragment
 import androidx.leanback.app.DetailsSupportFragmentBackgroundController
 import androidx.leanback.widget.Action
@@ -51,7 +51,7 @@ class ProductDetailFragment : DetailsSupportFragment() {
     private fun setItemClickListener() {
         setOnItemViewClickedListener { _, item, _, _ ->
             if (item is Product) {
-                val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+                val intent = Intent(activity, ProductDetailActivity::class.java)
                 with(intent) {
                     putExtra(Constants.EXTRA_PRODUCT_ID, item.id)
                     putExtra(Constants.EXTRA_PRODUCT_CATEGORY, item.category)
@@ -69,7 +69,7 @@ class ProductDetailFragment : DetailsSupportFragment() {
                     bindDetailsData(it.details)
                 }
                 is ProductDetailsState.Error -> {
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity?.applicationContext, "${it.message}", Toast.LENGTH_SHORT).show()
                 }
                 is ProductDetailsState.RelatedItemsFetched -> {
                     bindRelatedItems(it.products)
@@ -111,7 +111,7 @@ class ProductDetailFragment : DetailsSupportFragment() {
         }
 
         val fullWidthMovieDetailsPresenter = FullWidthDetailsOverviewRowPresenter(ProductDetailsDescriptionPresenter()).apply {
-                backgroundColor = ContextCompat.getColor(requireContext(), R.color.details_background_color)
+                backgroundColor = ResourcesCompat.getColor(resources, R.color.details_background_color, null)
         }
 
         val classPresenterSelector = ClassPresenterSelector().apply {
