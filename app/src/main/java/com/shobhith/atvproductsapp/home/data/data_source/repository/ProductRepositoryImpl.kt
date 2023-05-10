@@ -4,13 +4,13 @@ import com.shobhith.atvproductsapp.home.data.data_source.remote.api.ProductApiSe
 import com.shobhith.atvproductsapp.home.domain.model.CategoryResponse
 import com.shobhith.atvproductsapp.home.domain.model.ProductResponse
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
-import io.reactivex.rxjava3.core.Observable
+import retrofit2.Response
 
 class ProductRepositoryImpl(private val productApi: ProductApiService) : ProductRepository {
-    override fun getProductCategories(): Observable<CategoryResponse>  =
+    override suspend fun getProductCategories(): Response<CategoryResponse>  =
         productApi.getCategories()
 
-    override fun getProductByCategoryName(name: String): Observable<ProductResponse> =
+    override suspend fun getProductByCategoryName(name: String): Response<ProductResponse> =
         productApi.getProductByCategory(name)
 
 }

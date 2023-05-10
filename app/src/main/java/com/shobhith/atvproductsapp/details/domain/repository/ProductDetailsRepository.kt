@@ -1,9 +1,9 @@
 package com.shobhith.atvproductsapp.details.domain.repository
 
 import com.shobhith.atvproductsapp.home.domain.model.Product
-import io.reactivex.rxjava3.core.Observable
+import retrofit2.Response
 
 interface ProductDetailsRepository {
-    fun getProductDetails(id: Int) : Observable<Product>
+    suspend fun getProductDetails(id: Int) : Response<Product>
 }
 
