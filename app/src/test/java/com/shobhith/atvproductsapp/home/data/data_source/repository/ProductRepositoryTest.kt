@@ -1,19 +1,27 @@
 package com.shobhith.atvproductsapp.home.data.data_source.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth.assertThat
 import com.shobhith.atvproductsapp.home.data.data_source.remote.api.ProductApiService
 import com.shobhith.atvproductsapp.home.domain.model.CategoryResponse
 import com.shobhith.atvproductsapp.home.domain.model.Product
 import com.shobhith.atvproductsapp.home.domain.model.ProductResponse
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProductRepositoryTest {
 
     @get: Rule
@@ -38,35 +46,39 @@ class ProductRepositoryTest {
 
     @Test
     fun `given getProductCategories when success should return success response`() {
-        every { productApi.getCategories() } returns Observable.just(CategoryResponse().apply { addAll(categories) })
-        val response = productRepository.getProductCategories().test()
-        response.assertValue {
-            it.containsAll(categories)
+        runTest {
+            coEvery { productApi.getCategories() } returns Response.success((CategoryResponse().apply { addAll(categories) }))
+            val response = productRepository.getProductCategories()
+            assertThat(response.body()).isEqualTo(categories)
         }
     }
 
     @Test
     fun `given getProductCategories when error should return error response`() {
-        val error = Throwable("Error")
-        every { productApi.getCategories() } returns Observable.error(error)
-        val response = productRepository.getProductCategories().test()
-        response.assertError(error)
+        runTest {
+            coEvery { productApi.getCategories() } returns Response.error(400, "".toResponseBody("application/json".toMediaTypeOrNull()))
+            val response = productRepository.getProductCategories()
+            assertThat(response.code()).isEqualTo(400)
+        }
     }
 
     @Test
     fun `given getProductByCategoryName when success should return success response`() {
-        val productResponse = ProductResponse(5, products, 2, 5)
-        every { productApi.getProductByCategory(any()) } returns Observable.just(productResponse)
-        val response = productRepository.getProductByCategoryName("smartphones").test()
-        response.assertValue(productResponse)
+        runTest {
+            val productResponse = ProductResponse(5, products, 2, 5)
+            coEvery { productApi.getProductByCategory(any()) } returns Response.success(productResponse)
+            val response = productRepository.getProductByCategoryName("smartphones")
+            assertThat(response.body()).isEqualTo(productResponse)
+        }
     }
 
     @Test
     fun `given getProductByCategoryName when error should return error response`() {
-        val error = Throwable("Error")
-        every { productApi.getProductByCategory(any()) } returns Observable.error(error)
-        val response = productRepository.getProductByCategoryName("").test()
-        response.assertError(error)
+        runTest {
+            coEvery { productApi.getProductByCategory(any()) } returns Response.error(400, "".toResponseBody("application/json".toMediaTypeOrNull()))
+            val response = productRepository.getProductByCategoryName("")
+            assertThat(response.code()).isEqualTo(400)
+        }
     }
 }
 

@@ -1,19 +1,25 @@
 package com.shobhith.atvproductsapp.home.domain.usecase
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.shobhith.atvproductsapp.home.domain.model.CategoryResponse
+import com.google.common.truth.Truth.assertThat
 import com.shobhith.atvproductsapp.home.domain.model.Product
 import com.shobhith.atvproductsapp.home.domain.model.ProductResponse
 import com.shobhith.atvproductsapp.home.domain.repository.ProductRepository
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.reactivex.rxjava3.core.Observable
-import org.junit.Assert.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetProductByCategoryNameTest {
 
     @get: Rule
@@ -37,20 +43,22 @@ class GetProductByCategoryNameTest {
 
     @Test
     fun `given GetProductByCategoryName when success should return products list`() {
-        val productResponse = ProductResponse(5, products, 2, 5)
-        every { productRepository.getProductByCategoryName(any()) } returns Observable.just(productResponse)
-        val response = getProducts("smartphones").test()
-        response.assertValue {
-            it.products.containsAll(products)
+        runTest {
+            val productResponse = ProductResponse(5, products, 2, 5)
+            coEvery { productRepository.getProductByCategoryName(any()) } returns Response.success(productResponse)
+            val response = getProducts("smartphones")
+            assertThat(response.body()).isEqualTo(productResponse)
         }
     }
 
     @Test
     fun `given GetProductByCategoryName when error should return error observable`() {
-        val error = Throwable("Some Error")
-        every { productRepository.getProductByCategoryName(any()) } returns Observable.error(error)
-        val response = getProducts("").test()
-        response.assertError(error)
+        runTest {
+            val error = Throwable("Some Error")
+            coEvery { productRepository.getProductByCategoryName(any()) } returns Response.error(400, "".toResponseBody("application/json".toMediaTypeOrNull()))
+            val response = getProducts("")
+            assertThat(response.code()).isEqualTo(400)
+        }
     }
 }
 
